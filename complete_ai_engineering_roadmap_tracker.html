@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete AI Engineering Roadmap Tracker | Krish Naik</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            400: '#818cf8',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar and subtle animations */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.1);
+        }
+        .dark ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.6);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(99, 102, 241, 0.4);
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(99, 102, 241, 0.7);
+        }
+        .checkbox-pop {
+            transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .checkbox-pop:active {
+            transform: scale(0.88);
+        }
+        .glass-header {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        @keyframes pulse-subtle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        .animate-pulse-subtle {
+            animation: pulse-subtle 2.5s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 min-h-screen font-sans selection:bg-indigo-500 selection:text-white transition-colors duration-200">
+
+    <!-- Top Sticky Navigation Header -->
+    <header class="sticky top-0 z-40 glass-header bg-white/85 dark:bg-slate-900/85 border-b border-slate-200 dark:border-slate-800 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
+            <!-- Brand Title -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-600 via-violet-600 to-cyan-500 flex items-center justify-center text-white shadow-md shadow-indigo-500/20">
+                    <i class="fa-solid fa-microchip text-lg"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h1 class="font-bold text-base sm:text-lg tracking-tight bg-gradient-to-r from-indigo-600 via-violet-500 to-cyan-500 dark:from-indigo-400 dark:via-violet-400 dark:to-cyan-400 bg-clip-text text-transparent">
+                            AI Engineering Roadmap
+                        </h1>
+                        <span class="hidden md:inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-mono font-semibold bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20">
+                            13 STAGES
+                        </span>
+                    </div>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 hidden sm:block">
+                        Based on Krish Naik's Complete AI Engineer Curriculum
+                    </p>
+                </div>
+            </div>
+
+            <!-- Quick Mini Progress & Actions -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <!-- Sticky Mini Progress Pill -->
+                <div class="hidden lg:flex items-center gap-2.5 bg-slate-100 dark:bg-slate-800/90 px-3.5 py-1.5 rounded-full border border-slate-200/80 dark:border-slate-700/80">
+                    <span class="text-xs font-medium text-slate-600 dark:text-slate-300">Overall Mastery</span>
+                    <div class="w-24 h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                        <div id="headerProgressBar" class="h-full bg-gradient-to-r from-indigo-500 to-cyan-400 transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                    <span id="headerProgressText" class="text-xs font-mono font-bold text-indigo-600 dark:text-indigo-400">0%</span>
+                </div>
+
+                <!-- Reference Video Button -->
+                <a href="https://youtu.be/BOY65Sw8xL0" target="_blank" rel="noopener noreferrer"
+                   class="inline-flex items-center gap-2 px-3 py-2 rounded-xl text-xs sm:text-sm font-medium bg-rose-500/10 text-rose-600 dark:text-rose-400 hover:bg-rose-500/20 border border-rose-500/20 transition-all"
+                   title="Watch Krish Naik's Reference Video on YouTube">
+                    <i class="fa-brands fa-youtube text-base"></i>
+                    <span class="hidden sm:inline">Watch Video</span>
+                </a>
+
+                <!-- Video Summary Modal Trigger -->
+                <button id="openSummaryBtn"
+                        class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs sm:text-sm font-medium bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-500/20 border border-indigo-500/20 transition-all"
+                        title="Read Video Summary & Key Takeaways">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span class="hidden md:inline">Video Summary</span>
+                </button>
+
+                <!-- Export / Import Dropdown or Modal Button -->
+                <button id="openDataModalBtn"
+                        class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs sm:text-sm font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 transition-all"
+                        title="Backup, Export, Import or Reset Progress">
+                    <i class="fa-solid fa-sliders"></i>
+                    <span class="hidden md:inline">Backup / Data</span>
+                </button>
+
+                <!-- Theme Toggle Button -->
+                <button id="themeToggleBtn"
+                        class="w-9 h-9 rounded-xl flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 transition-all"
+                        title="Toggle Dark / Light Mode"
+                        aria-label="Toggle Theme">
+                    <i id="themeIcon" class="fa-solid fa-sun text-amber-400"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6">
+
+        <!-- HERO DASHBOARD SECTION -->
+        <section class="relative rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden p-5 sm:p-7">
+            <!-- Decorative subtle background glow -->
+            <div class="pointer-events-none absolute -top-24 -right-24 w-96 h-96 rounded-full bg-indigo-500/10 blur-3xl"></div>
+            <div class="pointer-events-none absolute -bottom-24 -left-24 w-96 h-96 rounded-full bg-cyan-500/10 blur-3xl"></div>
+
+            <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                <!-- Left Column: Overall Progress & Stats -->
+                <div class="lg:col-span-7 space-y-4">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <div>
+                            <span class="text-xs font-mono uppercase tracking-wider text-indigo-600 dark:text-indigo-400 font-semibold">
+                                Interactive Career Tracker
+                            </span>
+                            <h2 class="text-xl sm:text-2xl font-extrabold tracking-tight mt-0.5">
+                                Your Path to Production AI Engineering
+                            </h2>
+                        </div>
+                        <div class="flex items-center gap-2 bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800/70 px-3.5 py-1.5 rounded-xl">
+                            <span id="mainProgressPercent" class="text-2xl sm:text-3xl font-extrabold font-mono text-indigo-600 dark:text-indigo-400">0%</span>
+                            <span class="text-xs text-slate-500 dark:text-slate-400 leading-tight">Total<br>Complete</span>
+                        </div>
+                    </div>
+
+                    <!-- Main Progress Bar -->
+                    <div class="space-y-1.5">
+                        <div class="w-full h-3.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden p-0.5 border border-slate-200/60 dark:border-slate-700/60">
+                            <div id="mainProgressBar"
+                                 class="h-full rounded-full bg-gradient-to-r from-indigo-600 via-violet-500 to-cyan-400 transition-all duration-500 relative"
+                                 style="width: 0%">
+                            </div>
+                        </div>
+                        <div class="flex justify-between text-xs text-slate-500 dark:text-slate-400 font-mono">
+                            <span id="topicsCountStat">0 / 120 Sub-topics Mastered</span>
+                            <span id="roleCoreStat">Role Priority Coverage: 0%</span>
+                        </div>
+                    </div>
+
+                    <!-- 4 Key Metric Stat Cards -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
+                        <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/70 dark:border-slate-800">
+                            <div class="text-xs text-slate-500 dark:text-slate-400 flex items-center justify-between">
+                                <span>Completed Stages</span>
+                                <i class="fa-solid fa-trophy text-emerald-500"></i>
+                            </div>
+                            <div id="statModulesDone" class="text-lg sm:text-xl font-bold font-mono mt-1">0 / 13</div>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/70 dark:border-slate-800">
+                            <div class="text-xs text-slate-500 dark:text-slate-400 flex items-center justify-between">
+                                <span>In Progress</span>
+                                <i class="fa-solid fa-fire-flame-curved text-amber-500"></i>
+                            </div>
+                            <div id="statModulesActive" class="text-lg sm:text-xl font-bold font-mono mt-1">0</div>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/70 dark:border-slate-800">
+                            <div class="text-xs text-slate-500 dark:text-slate-400 flex items-center justify-between">
+                                <span>Topics Left</span>
+                                <i class="fa-solid fa-list-check text-indigo-500"></i>
+                            </div>
+                            <div id="statTopicsRemaining" class="text-lg sm:text-xl font-bold font-mono mt-1">0</div>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/70 dark:border-slate-800">
+                            <div class="text-xs text-slate-500 dark:text-slate-400 flex items-center justify-between">
+                                <span>Saved Notes</span>
+                                <i class="fa-solid fa-note-sticky text-cyan-500"></i>
+                            </div>
+                            <div id="statNotesCount" class="text-lg sm:text-xl font-bold font-mono mt-1">0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Target Role Selector & Role Insights -->
+                <div class="lg:col-span-5 bg-slate-50/80 dark:bg-slate-800/40 rounded-2xl p-4 sm:p-5 border border-slate-200/80 dark:border-slate-800 space-y-3.5">
+                    <div class="flex items-center justify-between">
+                        <label class="text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold flex items-center gap-1.5">
+                            <i class="fa-solid fa-bullseye text-indigo-500"></i>
+                            Target Career Track
+                        </label>
+                        <span class="text-[11px] text-indigo-600 dark:text-indigo-400 font-medium">Highlights Core Stages</span>
+                    </div>
+
+                    <!-- Role Selector Pills -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2" id="roleSelectorContainer">
+                        <button data-role="ai_engineer"
+                                class="role-btn px-3 py-2.5 rounded-xl text-xs font-semibold border text-left transition-all flex flex-col justify-between gap-1">
+                            <div class="flex items-center justify-between w-full">
+                                <span>AI Engineer</span>
+                                <i class="fa-solid fa-robot text-indigo-500"></i>
+                            </div>
+                            <span class="text-[10px] font-normal opacity-75">Full-Stack GenAI & Agents</span>
+                        </button>
+                        <button data-role="llmops_engineer"
+                                class="role-btn px-3 py-2.5 rounded-xl text-xs font-semibold border text-left transition-all flex flex-col justify-between gap-1">
+                            <div class="flex items-center justify-between w-full">
+                                <span>LLMOps Engineer</span>
+                                <i class="fa-solid fa-server text-cyan-500"></i>
+                            </div>
+                            <span class="text-[10px] font-normal opacity-75">Infra, Evals, Deploy & Cloud</span>
+                        </button>
+                        <button data-role="fde_engineer"
+                                class="role-btn px-3 py-2.5 rounded-xl text-xs font-semibold border text-left transition-all flex flex-col justify-between gap-1">
+                            <div class="flex items-center justify-between w-full">
+                                <span>AI Forward Deployed</span>
+                                <i class="fa-solid fa-bolt text-amber-500"></i>
+                            </div>
+                            <span class="text-[10px] font-normal opacity-75">Apps, RAG, Agents & Design</span>
+                        </button>
+                    </div>
+
+                    <!-- Dynamic Role Focus Box -->
+                    <div class="p-3 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-200/70 dark:border-slate-800 text-xs space-y-1.5">
+                        <div class="font-semibold text-slate-800 dark:text-slate-200 flex items-center justify-between">
+                            <span id="roleTitleDisplay">AI Engineer Focus</span>
+                            <span id="rolePriorityBadge" class="font-mono text-[11px] px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-600 dark:text-indigo-400">13 Core Stages</span>
+                        </div>
+                        <p id="roleDescriptionDisplay" class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                            End-to-end builder mastering Python backends, Foundation Models, RAG, Multi-Agent systems, Evals, and production deployment.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 13-Stage Visual Mini Map Strip -->
+            <div class="mt-6 pt-5 border-t border-slate-200/80 dark:border-slate-800/80">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs font-semibold text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+                        <i class="fa-solid fa-map-location-dot text-indigo-500"></i>
+                        Quick Jump Stage Matrix (Click any stage to jump)
+                    </span>
+                    <span class="text-[11px] text-slate-400 dark:text-slate-500 hidden sm:inline">
+                        <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 mr-1"></span>Completed
+                        <span class="inline-block w-2 h-2 rounded-full bg-indigo-500 ml-2 mr-1"></span>In Progress
+                        <span class="inline-block w-2 h-2 rounded-full bg-slate-300 dark:bg-slate-700 ml-2 mr-1"></span>Not Started
+                    </span>
+                </div>
+                <div id="stageMiniMap" class="grid grid-cols-4 sm:grid-cols-7 lg:grid-cols-13 gap-1.5">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTROLS: SEARCH, FILTER TABS & EXPAND/COLLAPSE -->
+        <section class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 bg-white dark:bg-slate-900 p-3.5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+            <!-- Search Input -->
+            <div class="relative flex-1">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                <input id="searchInput"
+                       type="text"
+                       placeholder="Search across all 13 stages & sub-topics (e.g., 'FastAPI', 'GraphRAG', 'MCP', 'LangGraph')..."
+                       class="w-full pl-10 pr-9 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all">
+                <button id="clearSearchBtn" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-xs">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Filter Pills -->
+            <div class="flex flex-wrap items-center gap-1.5 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
+                <button data-filter="all" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-medium transition-all">
+                    All (13)
+                </button>
+                <button data-filter="in_progress" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-medium transition-all">
+                    In Progress
+                </button>
+                <button data-filter="completed" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-medium transition-all">
+                    Completed
+                </button>
+                <button data-filter="not_started" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-medium transition-all">
+                    Not Started
+                </button>
+                <button data-filter="role_core" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-medium transition-all text-indigo-600 dark:text-indigo-400">
+                    <i class="fa-solid fa-star text-[10px] mr-1"></i>Role Priority
+                </button>
+            </div>
+
+            <!-- Expand / Collapse All -->
+            <div class="flex items-center gap-1.5">
+                <button id="expandAllBtn"
+                        class="px-3 py-2 rounded-xl text-xs font-medium bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-all flex items-center gap-1.5"
+                        title="Expand All Modules">
+                    <i class="fa-solid fa-up-right-and-down-left-from-center text-[11px]"></i>
+                    <span>Expand All</span>
+                </button>
+                <button id="collapseAllBtn"
+                        class="px-3 py-2 rounded-xl text-xs font-medium bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-all flex items-center gap-1.5"
+                        title="Collapse All Modules">
+                    <i class="fa-solid fa-down-left-and-up-right-to-center text-[11px]"></i>
+                    <span>Collapse All</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- ROADMAP MODULES CONTAINER -->
+        <section id="modulesContainer" class="space-y-4">
+            <!-- Dynamically rendered via JavaScript -->
+        </section>
+
+        <!-- Empty Search State -->
+        <div id="emptyState" class="hidden text-center py-16 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6">
+            <div class="w-14 h-14 mx-auto rounded-2xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center text-2xl mb-3">
+                <i class="fa-solid fa-magnifying-glass-minus"></i>
+            </div>
+            <h3 class="text-lg font-bold">No matching roadmap stages or topics found</h3>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-md mx-auto">
+                Try clearing your search filter or switching the status tab above to view all 13 stages of the AI Engineering Roadmap.
+            </p>
+            <button id="resetFiltersBtn" class="mt-4 px-4 py-2 rounded-xl text-xs font-semibold bg-indigo-600 text-white hover:bg-indigo-500 transition-all">
+                Reset Search & Filters
+            </button>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 mt-8 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2">
+            <i class="fa-solid fa-circle-check text-emerald-500"></i>
+            <span>All progress & personal study notes are saved automatically in your browser's LocalStorage.</span>
+        </div>
+        <div class="flex items-center gap-4">
+            <a href="https://youtu.be/BOY65Sw8xL0" target="_blank" rel="noopener noreferrer" class="hover:text-indigo-500 underline underline-offset-4 flex items-center gap-1.5">
+                <i class="fa-brands fa-youtube text-rose-500"></i>
+                Krish Naik's Reference Video
+            </a>
+        </div>
+    </footer>
+
+    <!-- VIDEO SUMMARY MODAL -->
+    <div id="summaryModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl max-w-2xl w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden">
+            <div class="p-4 sm:p-5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-rose-500/10 text-rose-500 flex items-center justify-center">
+                        <i class="fa-brands fa-youtube text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-base">Video Summary: Complete AI Engineering Roadmap</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">By Krish Naik • Reference Guide & Career Breakdown</p>
+                    </div>
+                </div>
+                <button id="closeSummaryModalBtn" class="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 hover:text-slate-800 dark:hover:text-white">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="p-5 overflow-y-auto space-y-4 text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+                <p>
+                    In <a href="https://youtu.be/BOY65Sw8xL0" target="_blank" class="text-indigo-500 font-medium underline">this comprehensive roadmap video</a>, <strong>Krish Naik</strong> breaks down the exact skills required to transition from a traditional developer or data scientist into a production-ready <strong>AI Engineer, LLMOps Engineer, or AI Forward Deployed Engineer</strong>.
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/70">
+                        <h4 class="font-bold text-xs uppercase tracking-wider text-indigo-500 mb-1">1. Software & AI Foundations (Stages 1–2)</h4>
+                        <p class="text-xs text-slate-600 dark:text-slate-400">
+                            AI Engineering is 70% software engineering. Mastering Async Python, FastAPI, Pydantic, PostgreSQL, Redis, Docker, and core ML/DL/Transformer mechanics is mandatory before building complex LLM pipelines.
+                        </p>
+                    </div>
+                    <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/70">
+                        <h4 class="font-bold text-xs uppercase tracking-wider text-violet-500 mb-1">2. Context, Apps & Advanced RAG (Stages 3–5)</h4>
+                        <p class="text-xs text-slate-600 dark:text-slate-400">
+                            Shifts from simple prompt engineering to <strong>Context Engineering</strong>, structured outputs, tool calling, semantic caching, and production RAG (Hybrid Search, Reranking, GraphRAG, CRAG, Self-RAG, Agentic RAG).
+                        </p>
+                    </div>
+                    <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/70">
+                        <h4 class="font-bold text-xs uppercase tracking-wider text-cyan-500 mb-1">3. AI Agents, MCP & Orchestration (Stages 6–7)</h4>
+                        <p class="text-xs text-slate-600 dark:text-slate-400">
+                            Covers autonomous reasoning (ReAct, Reflection), memory architectures, the <strong>Model Context Protocol (MCP)</strong>, and multi-agent state orchestration with LangGraph, Google ADK, OpenAI Agents SDK, CrewAI, and PydanticAI.
+                        </p>
+                    </div>
+                    <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/70">
+                        <h4 class="font-bold text-xs uppercase tracking-wider text-emerald-500 mb-1">4. Evals, Security, Ops & Design (Stages 8–13)</h4>
+                        <p class="text-xs text-slate-600 dark:text-slate-400">
+                            Enterprise readiness requires automated Evals, OpenTelemetry/LangSmith tracing, Guardrails against prompt injection, GenAI Ops (prompt/model versioning), Cloud services (Bedrock, Vertex AI, Azure), and System Design trade-offs.
+                        </p>
+                    </div>
+                </div>
+                <div class="p-3.5 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-xs space-y-1">
+                    <div class="font-bold text-indigo-600 dark:text-indigo-400 flex items-center gap-1.5">
+                        <i class="fa-solid fa-lightbulb"></i>
+                        How to Use This Tracker
+                    </div>
+                    <p class="text-slate-600 dark:text-slate-300">
+                        Check off sub-topics as you build hands-on projects, click any timestamp badge on a card to jump directly to Krish Naik's explanation on YouTube, and log your GitHub repo links or study notes inside each stage!
+                    </p>
+                </div>
+            </div>
+            <div class="p-4 border-t border-slate-200 dark:border-slate-800 flex justify-end gap-2">
+                <a href="https://youtu.be/BOY65Sw8xL0" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl text-xs font-semibold bg-rose-600 text-white hover:bg-rose-500 transition-all flex items-center gap-1.5">
+                    <i class="fa-brands fa-youtube"></i>
+                    Open Full Video on YouTube
+                </a>
+                <button id="closeSummaryBottomBtn" class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- DATA BACKUP / EXPORT / IMPORT / RESET MODAL -->
+    <div id="dataModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl max-w-lg w-full shadow-2xl overflow-hidden">
+            <div class="p-4 sm:p-5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center">
+                        <i class="fa-solid fa-database"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-base">Manage Roadmap Data</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Export, Import, or Reset your progress & notes</p>
+                    </div>
+                </div>
+                <button id="closeDataModalBtn" class="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 hover:text-slate-800 dark:hover:text-white">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="p-5 space-y-5 text-sm">
+                <!-- Export Section -->
+                <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/70 space-y-2">
+                    <div class="font-semibold flex items-center justify-between">
+                        <span>Export Progress (JSON)</span>
+                        <i class="fa-solid fa-file-export text-indigo-500"></i>
+                    </div>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">
+                        Download a JSON backup file or copy your current progress and study notes to the clipboard.
+                    </p>
+                    <div class="flex flex-wrap gap-2 pt-1">
+                        <button id="downloadJsonBtn" class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-indigo-600 text-white hover:bg-indigo-500 transition-all flex items-center gap-1.5">
+                            <i class="fa-solid fa-download"></i>
+                            Download JSON File
+                        </button>
+                        <button id="copyJsonBtn" class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-100 hover:bg-slate-300 dark:hover:bg-slate-600 transition-all flex items-center gap-1.5">
+                            <i class="fa-solid fa-copy"></i>
+                            Copy JSON to Clipboard
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Import Section -->
+                <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/70 space-y-2.5">
+                    <div class="font-semibold flex items-center justify-between">
+                        <span>Import Progress (JSON)</span>
+                        <i class="fa-solid fa-file-import text-cyan-500"></i>
+                    </div>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">
+                        Upload a previously exported JSON file or paste JSON below to restore your roadmap state.
+                    </p>
+                    <input type="file" id="importFileInput" accept=".json" class="block w-full text-xs text-slate-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-indigo-500/10 file:text-indigo-600 dark:file:text-indigo-400 hover:file:bg-indigo-500/20 cursor-pointer">
+                    <textarea id="importJsonTextarea" rows="3" placeholder='Or paste exported JSON string here...' class="w-full p-2.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+                    <button id="importJsonBtn" class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-cyan-600 text-white hover:bg-cyan-500 transition-all flex items-center gap-1.5">
+                        <i class="fa-solid fa-upload"></i>
+                        Restore from Pasted JSON
+                    </button>
+                </div>
+
+                <!-- Danger Zone Reset -->
+                <div class="p-4 rounded-xl bg-rose-500/5 border border-rose-500/20 space-y-2">
+                    <div class="font-semibold text-rose-600 dark:text-rose-400 flex items-center justify-between">
+                        <span>Reset All Progress</span>
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">
+                        Clear all checked topics and personal notes to start fresh.
+                    </p>
+                    <div class="pt-1 flex items-center gap-2">
+                        <button id="resetInitBtn" class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-rose-600/10 text-rose-600 dark:text-rose-400 hover:bg-rose-600 hover:text-white border border-rose-500/30 transition-all">
+                            Reset All Data...
+                        </button>
+                        <div id="resetConfirmGroup" class="hidden items-center gap-2">
+                            <span class="text-xs font-semibold text-rose-500">Are you sure?</span>
+                            <button id="confirmResetBtn" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-rose-600 text-white hover:bg-rose-500">
+                                Yes, Wipe Everything
+                            </button>
+                            <button id="cancelResetBtn" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-200 dark:bg-slate-700">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Toast Notification -->
+    <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- APPLICATION LOGIC & DATA -->
+    <script>
+        /**
+         * Complete 13-Stage AI Engineering Roadmap Dataset based on Krish Naik's Video (https://youtu.be/BOY65Sw8xL0)
+         */
+        const VIDEO_BASE_URL = "https://youtu.be/BOY65Sw8xL0";
+
+        const ROLE_CONFIGS = {
+            ai_engineer: {
+                title: "AI Engineer (Full-Stack GenAI)",
+                badge: "All 13 Stages Core",
+                description: "End-to-end builder mastering Python backends, Foundation Models, Advanced RAG, Autonomous Agents, Evals, Security, and Production Deployment.",
+                coreModules: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+            },
+            llmops_engineer: {
+                title: "LLMOps / GenAI Platform Engineer",
+                badge: "9 Core Stages Highlighted",
+                description: "Focuses heavily on software engineering, LLM gateways, Evals, OpenTelemetry observability, Guardrails, CI/CD versioning, Multi-Cloud infra, and scalable System Design.",
+                coreModules: [1, 4, 8, 9, 10, 11, 12, 13, 5]
+            },
+            fde_engineer: {
+                title: "AI Forward Deployed Engineer (FDE)",
+                badge: "10 Core Stages Highlighted",
+                description: "Customer-facing rapid architect specializing in Context Engineering, LLM App Engineering, Advanced RAG, MCP Agents, Multi-Agent Orchestration, Evals, and System Design.",
+                coreModules: [1, 3, 4, 5, 6, 7, 8, 9, 10, 13]
+            }
+        };
+
+        const ROADMAP_DATA = [
+            {
+                id: 1,
+                stage: "Stage 01",
+                title: "Programming & Software Engineering",
+                icon: "fa-code",
+                accent: "indigo",
+                timestamp: "01:15",
+                seconds: 75,
+                description: "Production AI engineering starts with rock-solid asynchronous Python, modern API backends, structured/unstructured data layers, and containerization.",
+                categories: [
+                    {
+                        name: "Python",
+                        items: ["Fundamentals", "OOPs", "Async Python", "Type Hints", "Error Handling", "Testing"]
+                    },
+                    {
+                        name: "Backend",
+                        items: ["REST APIs", "FastAPI", "Pydantic", "Authentication", "WebSockets", "API Design"]
+                    },
+                    {
+                        name: "Data",
+                        items: ["SQL", "PostgreSQL", "Redis", "JSON", "Data Modeling (Structured & Unstructured Data)"]
+                    },
+                    {
+                        name: "DevOps Basics",
+                        items: ["Git & GitHub", "Linux", "Docker", "Environment Management", "Logging", "Cloud Fundamentals"]
+                    }
+                ]
+            },
+            {
+                id: 2,
+                stage: "Stage 02",
+                title: "AI/ML Foundation",
+                icon: "fa-brain",
+                accent: "violet",
+                timestamp: "04:30",
+                seconds: 270,
+                description: "Understand the mathematical and architectural backbone of modern AI—from classical ML and neural networks to embeddings and the Transformer architecture.",
+                categories: [
+                    {
+                        name: "Machine Learning",
+                        items: ["Supervised ML", "Unsupervised ML", "Feature Engineering", "Model Evaluation", "Model Serving"]
+                    },
+                    {
+                        name: "Deep Learning",
+                        items: ["Neural Networks", "Backpropagation", "Optimizers", "PyTorch / TensorFlow", "GPU Basics"]
+                    },
+                    {
+                        name: "NLP",
+                        items: ["Tokenization", "Embeddings", "Attention Mechanisms", "NLP Basics"]
+                    },
+                    {
+                        name: "Transformers",
+                        items: ["Self-Attention", "Multi-Head Attention", "Positional Encoding", "Encoder-Decoder Architecture", "Pre-training", "Fine-tuning", "Inferencing"]
+                    }
+                ]
+            },
+            {
+                id: 3,
+                stage: "Stage 03",
+                title: "Generative AI & Foundation Models",
+                icon: "fa-wand-magic-sparkles",
+                accent: "purple",
+                timestamp: "08:10",
+                seconds: 490,
+                description: "Master commercial and open-weight LLMs, multimodal processing across vision/audio/documents, and advanced Context Engineering techniques.",
+                categories: [
+                    {
+                        name: "LLM Model Engineering",
+                        items: ["API Integration", "Tokens & Context Windows", "Model Selection", "Quantization"]
+                    },
+                    {
+                        name: "Multimodal Models",
+                        items: ["Audio", "Vision", "Speech", "Documents"]
+                    },
+                    {
+                        name: "Context Engineering",
+                        items: ["Prompt Engineering", "Dynamic Context", "Context Compression", "System Prompts", "Few-Shot Prompting", "Context Selection", "Structured Context", "Long-Term Context"]
+                    }
+                ]
+            },
+            {
+                id: 4,
+                stage: "Stage 04",
+                title: "LLM Application Engineering",
+                icon: "fa-cubes",
+                accent: "blue",
+                timestamp: "11:45",
+                seconds: 705,
+                description: "Build resilient, low-latency, and cost-effective LLM applications with deterministic schemas, tool calling, gateways, and semantic caching.",
+                categories: [
+                    {
+                        name: "Core Application Patterns",
+                        items: [
+                            "Structured Output & JSON Schema",
+                            "Tool Calling & Custom Tools",
+                            "Streaming & Async Execution",
+                            "Retry & Fallback Mechanisms",
+                            "Model Routing & LLM Gateways",
+                            "Semantic Caching, Rate Limiting & Cost Optimization"
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 5,
+                stage: "Stage 05",
+                title: "RAG Engineering",
+                icon: "fa-database",
+                accent: "cyan",
+                timestamp: "15:20",
+                seconds: 920,
+                description: "Go beyond naive vector lookup into enterprise-grade Retrieval-Augmented Generation, including Hybrid Search, Reranking, GraphRAG, CRAG, Self-RAG, and Agentic RAG.",
+                categories: [
+                    {
+                        name: "Core RAG",
+                        items: ["Ingestion", "Retrieval", "Generation"]
+                    },
+                    {
+                        name: "Advanced RAG",
+                        items: [
+                            "Hybrid Search",
+                            "Reranking",
+                            "Query Expansion",
+                            "Query Rewriting",
+                            "Multi-Query RAG",
+                            "Parent-Child Retrieval",
+                            "GraphRAG",
+                            "Multimodal RAG",
+                            "Corrective RAG (CRAG)",
+                            "Self-RAG",
+                            "Agentic RAG"
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 6,
+                stage: "Stage 06",
+                title: "AI Agents",
+                icon: "fa-robot",
+                accent: "teal",
+                timestamp: "19:05",
+                seconds: 1145,
+                description: "Design autonomous agents capable of tool execution, short/long-term memory, iterative reasoning (ReAct/Reflection), and standardized Model Context Protocol (MCP) integration.",
+                categories: [
+                    {
+                        name: "Agent Fundamentals",
+                        items: [
+                            "Tools (External APIs, Databases, Browser, Coding Agents)",
+                            "Memory Systems"
+                        ]
+                    },
+                    {
+                        name: "Agentic Reasoning",
+                        items: ["Reasoning", "Planning", "Reflection", "ReAct", "Task Decomposition"]
+                    },
+                    {
+                        name: "Model Context Protocol (MCP)",
+                        items: ["MCP Client", "MCP Server", "Tools", "Resources", "Prompts", "MCP Security"]
+                    }
+                ]
+            },
+            {
+                id: 7,
+                stage: "Stage 07",
+                title: "Agent Orchestration",
+                icon: "fa-diagram-project",
+                accent: "emerald",
+                timestamp: "23:10",
+                seconds: 1390,
+                description: "Coordinate stateful multi-agent workflows, deterministic routing, and Human-in-the-Loop (HITL) approvals using leading agentic frameworks.",
+                categories: [
+                    {
+                        name: "Orchestration Concepts",
+                        items: [
+                            "Agent State Management",
+                            "Workflows",
+                            "Routing",
+                            "Multi-Agent Systems",
+                            "Human-in-the-Loop (HITL) Approvals"
+                        ]
+                    },
+                    {
+                        name: "Frameworks",
+                        items: ["LangGraph", "Google ADK", "OpenAI Agents SDK", "CrewAI", "PydanticAI"]
+                    }
+                ]
+            },
+            {
+                id: 8,
+                stage: "Stage 08",
+                title: "AI Evaluation (Evals)",
+                icon: "fa-scale-balanced",
+                accent: "amber",
+                timestamp: "26:40",
+                seconds: 1600,
+                description: "Measure and guarantee quality across LLMs, RAG pipelines, and autonomous agents with golden datasets, LLM-as-a-Judge, and continuous regression testing.",
+                categories: [
+                    {
+                        name: "LLM Evals",
+                        items: ["Accuracy", "Relevance", "Hallucination", "Toxicity", "LLM-as-a-Judge"]
+                    },
+                    {
+                        name: "RAG Evals",
+                        items: ["Retrieval Recall", "Precision", "Groundedness", "Faithfulness"]
+                    },
+                    {
+                        name: "Agent Evals",
+                        items: ["Task Success", "Tool Selection", "Tool Arguments", "Goal Completion"]
+                    },
+                    {
+                        name: "Evaluation Pipelines",
+                        items: ["Golden Datasets", "Offline & Online Evals", "A/B Testing", "Regression Testing", "Human Review"]
+                    }
+                ]
+            },
+            {
+                id: 9,
+                stage: "Stage 09",
+                title: "AI Observability",
+                icon: "fa-chart-line",
+                accent: "orange",
+                timestamp: "30:15",
+                seconds: 1815,
+                description: "Gain deep visibility into production LLM and agent execution paths via distributed tracing, token/latency metrics, and industry observability platforms.",
+                categories: [
+                    {
+                        name: "Telemetry",
+                        items: ["Traces", "Metrics", "Logs", "Tracking LLM & Tool Calls"]
+                    },
+                    {
+                        name: "Platforms & Standards",
+                        items: ["LangSmith", "OpenTelemetry", "Langfuse", "Arize Phoenix", "Cloud Observability (AWS, GCP, Azure)"]
+                    }
+                ]
+            },
+            {
+                id: 10,
+                stage: "Stage 10",
+                title: "Guardrails & AI Security",
+                icon: "fa-shield-halved",
+                accent: "rose",
+                timestamp: "33:20",
+                seconds: 2000,
+                description: "Harden AI applications against prompt injection, jailbreaks, and PII leakage while enforcing least-privilege tool sandboxing and red-teaming.",
+                categories: [
+                    {
+                        name: "Threat Mitigation",
+                        items: ["Prompt Injection", "Indirect Injection", "Jailbreaking", "Data Leakage", "PII Detection"]
+                    },
+                    {
+                        name: "Security Controls",
+                        items: [
+                            "Input & Output Guardrails",
+                            "Tool Permissions & Least Privilege",
+                            "Secret Management",
+                            "Agent Sandboxing",
+                            "MCP Security",
+                            "Rate Limiting",
+                            "AI Red Teaming"
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 11,
+                stage: "Stage 11",
+                title: "Deployment (GenAI Ops / Agent Ops)",
+                icon: "fa-rocket",
+                accent: "pink",
+                timestamp: "36:45",
+                seconds: 2205,
+                description: "Unify DevOps, MLOps, and LLMOps with automated CI/CD, Kubernetes scaling, prompt/model versioning, canary rollouts, and instant rollbacks.",
+                categories: [
+                    {
+                        name: "CI/CD & Containers",
+                        items: ["GitHub Actions", "CI/CD Pipelines", "Docker", "Kubernetes"]
+                    },
+                    {
+                        name: "Versioning & Rollouts",
+                        items: [
+                            "Model Versioning",
+                            "Prompt Versioning",
+                            "Data Versioning",
+                            "Experiment Tracking",
+                            "Rollbacks",
+                            "Canary Deployment (Combining MLOps, LLMOps & DevOps)"
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 12,
+                stage: "Stage 12",
+                title: "Cloud Engineering",
+                icon: "fa-cloud",
+                accent: "sky",
+                timestamp: "39:50",
+                seconds: 2390,
+                description: "Deploy and manage enterprise AI workloads across AWS, Google Cloud, and Microsoft Azure managed AI and serverless container platforms.",
+                categories: [
+                    {
+                        name: "AWS",
+                        items: ["Amazon Bedrock", "SageMaker", "ECS", "EKS", "Lambda", "CloudWatch"]
+                    },
+                    {
+                        name: "GCP",
+                        items: ["Vertex AI", "Gemini", "Cloud Run", "GKE", "BigQuery"]
+                    },
+                    {
+                        name: "Azure",
+                        items: ["Azure AI", "Azure OpenAI", "AKS", "Azure Functions", "Monitoring"]
+                    }
+                ]
+            },
+            {
+                id: 13,
+                stage: "Stage 13",
+                title: "AI System Design",
+                icon: "fa-sitemap",
+                accent: "indigo",
+                timestamp: "42:30",
+                seconds: 2550,
+                description: "Architect scalable, reliable end-to-end AI systems by making sound engineering trade-offs between RAG vs. Fine-Tuning, Agents vs. Workflows, and caching/queues.",
+                categories: [
+                    {
+                        name: "Architecture & Trade-offs",
+                        items: [
+                            "End-to-End Architecture Design",
+                            "Model Selection Strategy",
+                            "RAG vs. Fine-Tuning",
+                            "Agent vs. Workflow",
+                            "Database Selection",
+                            "Queues",
+                            "Caching",
+                            "Reliability & Scalability"
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        // Generate stable unique topic keys for every sub-topic
+        ROADMAP_DATA.forEach(mod => {
+            mod.totalTopics = 0;
+            mod.categories.forEach((cat, cIdx) => {
+                cat.topicObjects = cat.items.map((itemName, iIdx) => {
+                    mod.totalTopics++;
+                    return {
+                        id: `m${mod.id}_c${cIdx}_t${iIdx}`,
+                        label: itemName
+                    };
+                });
+            });
+        });
+
+        const STORAGE_KEY = "krish_naik_ai_roadmap_v1";
+
+        // Default application state
+        let appState = {
+            completedTopics: {}, // { topicId: true }
+            moduleNotes: {},     // { modId: "string" }
+            expandedModules: { 1: true, 2: true, 3: true }, // Expand first 3 by default
+            selectedRole: "ai_engineer",
+            activeFilter: "all",
+            searchQuery: "",
+            darkMode: true
+        };
+
+        // Load state from localStorage
+        function loadState() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (raw) {
+                    const parsed = JSON.parse(raw);
+                    appState = {
+                        ...appState,
+                        ...parsed,
+                        completedTopics: parsed.completedTopics || {},
+                        moduleNotes: parsed.moduleNotes || {},
+                        expandedModules: parsed.expandedModules || { 1: true }
+                    };
+                }
+            } catch (e) {
+                console.warn("Failed to load state from localStorage:", e);
+            }
+        }
+
+        // Save state to localStorage
+        function saveState() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+            } catch (e) {
+                console.warn("Failed to save state to localStorage:", e);
+            }
+        }
+
+        // Helper: Show non-intrusive toast message
+        function showToast(message, icon = "fa-circle-check", colorClass = "text-emerald-400") {
+            const container = document.getElementById("toastContainer");
+            const toast = document.createElement("div");
+            toast.className = "pointer-events-auto flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-slate-900 dark:bg-slate-800 text-white text-xs font-medium shadow-lg border border-slate-700 transition-all duration-300 opacity-0 translate-y-2";
+            toast.innerHTML = `<i class="fa-solid ${icon} ${colorClass} text-sm"></i><span>${message}</span>`;
+            container.appendChild(toast);
+
+            requestAnimationFrame(() => {
+                toast.classList.remove("opacity-0", "translate-y-2");
+            });
+
+            setTimeout(() => {
+                toast.classList.add("opacity-0", "translate-y-2");
+                setTimeout(() => toast.remove(), 300);
+            }, 2600);
+        }
+
+        // Apply Dark/Light theme
+        function applyTheme() {
+            const root = document.documentElement;
+            const icon = document.getElementById("themeIcon");
+            if (appState.darkMode) {
+                root.classList.add("dark");
+                icon.className = "fa-solid fa-sun text-amber-400";
+            } else {
+                root.classList.remove("dark");
+                icon.className = "fa-solid fa-moon text-indigo-600";
+            }
+        }
+
+        // Calculate module stats
+        function getModuleProgress(mod) {
+            let completed = 0;
+            mod.categories.forEach(cat => {
+                cat.topicObjects.forEach(t => {
+                    if (appState.completedTopics[t.id]) completed++;
+                });
+            });
+            const total = mod.totalTopics;
+            const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
+            let status = "not_started";
+            if (completed === total && total > 0) status = "completed";
+            else if (completed > 0) status = "in_progress";
+
+            return { completed, total, percent, status };
+        }
+
+        // Update Dashboard Metrics & Mini Map
+        function updateDashboard() {
+            let totalTopics = 0;
+            let totalCompleted = 0;
+            let modulesCompleted = 0;
+            let modulesInProgress = 0;
+
+            const roleConfig = ROLE_CONFIGS[appState.selectedRole] || ROLE_CONFIGS.ai_engineer;
+            let roleTotalTopics = 0;
+            let roleCompletedTopics = 0;
+
+            ROADMAP_DATA.forEach(mod => {
+                const { completed, total, status } = getModuleProgress(mod);
+                totalTopics += total;
+                totalCompleted += completed;
+                if (status === "completed") modulesCompleted++;
+                else if (status === "in_progress") modulesInProgress++;
+
+                if (roleConfig.coreModules.includes(mod.id)) {
+                    roleTotalTopics += total;
+                    roleCompletedTopics += completed;
+                }
+            });
+
+            const overallPercent = totalTopics > 0 ? Math.round((totalCompleted / totalTopics) * 100) : 0;
+            const rolePercent = roleTotalTopics > 0 ? Math.round((roleCompletedTopics / roleTotalTopics) * 100) : 0;
+
+            // Update Progress Bars
+            document.getElementById("mainProgressPercent").textContent = `${overallPercent}%`;
+            document.getElementById("mainProgressBar").style.width = `${overallPercent}%`;
+            document.getElementById("headerProgressBar").style.width = `${overallPercent}%`;
+            document.getElementById("headerProgressText").textContent = `${overallPercent}%`;
+
+            // Update Sub-stats
+            document.getElementById("topicsCountStat").textContent = `${totalCompleted} / ${totalTopics} Sub-topics Mastered`;
+            document.getElementById("roleCoreStat").textContent = `Role Priority Coverage: ${rolePercent}%`;
+            document.getElementById("statModulesDone").textContent = `${modulesCompleted} / ${ROADMAP_DATA.length}`;
+            document.getElementById("statModulesActive").textContent = `${modulesInProgress}`;
+            document.getElementById("statTopicsRemaining").textContent = `${totalTopics - totalCompleted}`;
+
+            const notesCount = Object.values(appState.moduleNotes).filter(n => n && n.trim().length > 0).length;
+            document.getElementById("statNotesCount").textContent = `${notesCount}`;
+
+            // Update Role Selector UI
+            document.querySelectorAll(".role-btn").forEach(btn => {
+                const r = btn.getAttribute("data-role");
+                if (r === appState.selectedRole) {
+                    btn.className = "role-btn px-3 py-2.5 rounded-xl text-xs font-semibold border text-left transition-all flex flex-col justify-between gap-1 bg-indigo-600 text-white border-indigo-600 shadow-sm shadow-indigo-500/20";
+                } else {
+                    btn.className = "role-btn px-3 py-2.5 rounded-xl text-xs font-semibold border text-left transition-all flex flex-col justify-between gap-1 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-indigo-400";
+                }
+            });
+
+            document.getElementById("roleTitleDisplay").textContent = roleConfig.title;
+            document.getElementById("rolePriorityBadge").textContent = roleConfig.badge;
+            document.getElementById("roleDescriptionDisplay").textContent = roleConfig.description;
+
+            // Render 13-Stage Mini Map
+            const miniMap = document.getElementById("stageMiniMap");
+            miniMap.innerHTML = ROADMAP_DATA.map(mod => {
+                const { percent, status } = getModuleProgress(mod);
+                let bgClass = "bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700/80";
+                if (status === "completed") {
+                    bgClass = "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30";
+                } else if (status === "in_progress") {
+                    bgClass = "bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 border-indigo-500/30";
+                }
+                return `
+                    <button onclick="scrollToModule(${mod.id})"
+                            title="${mod.stage}: ${mod.title} (${percent}%)"
+                            class="p-2 rounded-xl border ${bgClass} hover:scale-105 transition-all flex flex-col items-center justify-center gap-1 group">
+                        <span class="text-[10px] font-mono font-bold">S${String(mod.id).padStart(2, '0')}</span>
+                        <div class="w-full h-1 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                            <div class="h-full ${status === 'completed' ? 'bg-emerald-500' : 'bg-indigo-500'}" style="width: ${percent}%"></div>
+                        </div>
+                        <span class="text-[10px] font-mono">${percent}%</span>
+                    </button>
+                `;
+            }).join("");
+
+            // Update Filter Pills Active State
+            document.querySelectorAll(".filter-btn").forEach(btn => {
+                const f = btn.getAttribute("data-filter");
+                if (f === appState.activeFilter) {
+                    btn.classList.add("bg-white", "dark:bg-slate-900", "shadow-sm", "text-indigo-600", "dark:text-indigo-400", "font-semibold");
+                } else {
+                    btn.classList.remove("bg-white", "dark:bg-slate-900", "shadow-sm", "font-semibold");
+                }
+            });
+        }
+
+        // Scroll smoothly to a specific module card and expand it
+        window.scrollToModule = function(modId) {
+            appState.expandedModules[modId] = true;
+            saveState();
+            renderModules();
+            const el = document.getElementById(`module-card-${modId}`);
+            if (el) {
+                el.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+        };
+
+        // Toggle individual topic completion
+        window.toggleTopic = function(topicId) {
+            if (appState.completedTopics[topicId]) {
+                delete appState.completedTopics[topicId];
+            } else {
+                appState.completedTopics[topicId] = true;
+            }
+            saveState();
+            updateDashboard();
+            renderModules();
+        };
+
+        // Toggle entire module completion
+        window.toggleAllModuleTopics = function(modId, event) {
+            if (event) event.stopPropagation();
+            const mod = ROADMAP_DATA.find(m => m.id === modId);
+            if (!mod) return;
+
+            const { status } = getModuleProgress(mod);
+            const markComplete = status !== "completed";
+
+            mod.categories.forEach(cat => {
+                cat.topicObjects.forEach(t => {
+                    if (markComplete) {
+                        appState.completedTopics[t.id] = true;
+                    } else {
+                        delete appState.completedTopics[t.id];
+                    }
+                });
+            });
+
+            saveState();
+            updateDashboard();
+            renderModules();
+            showToast(
+                markComplete ? `Completed all topics in ${mod.stage}: ${mod.title}!` : `Cleared progress for ${mod.stage}`,
+                markComplete ? "fa-trophy" : "fa-rotate-left",
+                markComplete ? "text-emerald-400" : "text-slate-400"
+            );
+        };
+
+        // Toggle expand/collapse of a module card
+        window.toggleModuleExpand = function(modId) {
+            appState.expandedModules[modId] = !appState.expandedModules[modId];
+            saveState();
+            renderModules();
+        };
+
+        // Save personal notes for a module
+        window.saveModuleNote = function(modId, value) {
+            appState.moduleNotes[modId] = value;
+            saveState();
+            const notesCount = Object.values(appState.moduleNotes).filter(n => n && n.trim().length > 0).length;
+            document.getElementById("statNotesCount").textContent = `${notesCount}`;
+        };
+
+        // Highlight matching search query text
+        function highlightText(text, query) {
+            if (!query) return text;
+            const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const regex = new RegExp(`(${escaped})`, 'gi');
+            return text.replace(regex, `<mark class="bg-amber-300/80 dark:bg-amber-500/40 text-slate-900 dark:text-white rounded px-0.5">$1</mark>`);
+        }
+
+        // Render all 13 Roadmap Module Cards
+        function renderModules() {
+            const container = document.getElementById("modulesContainer");
+            const emptyState = document.getElementById("emptyState");
+            const query = appState.searchQuery.trim().toLowerCase();
+            const roleConfig = ROLE_CONFIGS[appState.selectedRole] || ROLE_CONFIGS.ai_engineer;
+
+            let visibleCardsHtml = [];
+
+            ROADMAP_DATA.forEach(mod => {
+                const { completed, total, percent, status } = getModuleProgress(mod);
+                const isRoleCore = roleConfig.coreModules.includes(mod.id);
+
+                // Status Filter Check
+                if (appState.activeFilter === "completed" && status !== "completed") return;
+                if (appState.activeFilter === "in_progress" && status !== "in_progress") return;
+                if (appState.activeFilter === "not_started" && status !== "not_started") return;
+                if (appState.activeFilter === "role_core" && !isRoleCore) return;
+
+                // Search Query Check across module title, description, category names, and sub-topics
+                let matchesModuleHeader =
+                    mod.title.toLowerCase().includes(query) ||
+                    mod.stage.toLowerCase().includes(query) ||
+                    mod.description.toLowerCase().includes(query);
+
+                const filteredCategories = mod.categories.map(cat => {
+                    const catMatches = cat.name.toLowerCase().includes(query);
+                    const matchingTopics = cat.topicObjects.filter(t =>
+                        !query || matchesModuleHeader || catMatches || t.label.toLowerCase().includes(query)
+                    );
+                    return {
+                        ...cat,
+                        matchingTopics
+                    };
+                }).filter(cat => cat.matchingTopics.length > 0);
+
+                if (query && !matchesModuleHeader && filteredCategories.length === 0) {
+                    return;
+                }
+
+                const isExpanded = query ? true : !!appState.expandedModules[mod.id];
+                const noteText = appState.moduleNotes[mod.id] || "";
+                const hasNote = noteText.trim().length > 0;
+
+                // Status Badge Styling
+                let statusBadge = `<span class="px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400">Not Started</span>`;
+                if (status === "completed") {
+                    statusBadge = `<span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center gap-1"><i class="fa-solid fa-check-double text-[10px]"></i>Completed</span>`;
+                } else if (status === "in_progress") {
+                    statusBadge = `<span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 flex items-center gap-1"><i class="fa-solid fa-spinner text-[10px]"></i>In Progress</span>`;
+                }
+
+                // Role Priority Badge
+                const roleBadge = isRoleCore
+                    ? `<span class="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20" title="Core stage for your selected target role"><i class="fa-solid fa-star text-[9px]"></i>Role Priority</span>`
+                    : "";
+
+                // Categories & Checkboxes HTML
+                const categoriesHtml = filteredCategories.map(cat => {
+                    const catCompleted = cat.topicObjects.filter(t => appState.completedTopics[t.id]).length;
+                    return `
+                        <div class="bg-slate-50/90 dark:bg-slate-800/40 rounded-xl p-4 border border-slate-200/70 dark:border-slate-800/90 space-y-3">
+                            <div class="flex items-center justify-between border-b border-slate-200/70 dark:border-slate-700/60 pb-2">
+                                <h4 class="text-xs font-mono uppercase tracking-wider font-bold text-indigo-600 dark:text-indigo-400">
+                                    ${highlightText(cat.name, query)}
+                                </h4>
+                                <span class="text-[11px] font-mono text-slate-500 dark:text-slate-400">
+                                    ${catCompleted}/${cat.topicObjects.length}
+                                </span>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+                                ${cat.matchingTopics.map(topic => {
+                                    const checked = !!appState.completedTopics[topic.id];
+                                    return `
+                                        <label class="checkbox-pop group flex items-start gap-2.5 p-2.5 rounded-xl border cursor-pointer select-none transition-all ${
+                                            checked
+                                                ? 'bg-emerald-500/10 border-emerald-500/30 text-slate-800 dark:text-slate-100'
+                                                : 'bg-white dark:bg-slate-900/80 border-slate-200/80 dark:border-slate-800 hover:border-indigo-400 dark:hover:border-indigo-500/60 text-slate-700 dark:text-slate-300'
+                                        }">
+                                            <input type="checkbox"
+                                                   ${checked ? 'checked' : ''}
+                                                   onchange="toggleTopic('${topic.id}')"
+                                                   class="sr-only">
+                                            <span class="mt-0.5 w-4 h-4 rounded-md flex items-center justify-center border transition-all flex-shrink-0 ${
+                                                checked
+                                                    ? 'bg-emerald-500 border-emerald-500 text-white'
+                                                    : 'border-slate-300 dark:border-slate-600 group-hover:border-indigo-500'
+                                            }">
+                                                ${checked ? '<i class="fa-solid fa-check text-[10px]"></i>' : ''}
+                                            </span>
+                                            <span class="text-xs sm:text-sm leading-snug ${checked ? 'line-through opacity-70' : 'font-medium'}">
+                                                ${highlightText(topic.label, query)}
+                                            </span>
+                                        </label>
+                                    `;
+                                }).join("")}
+                            </div>
+                        </div>
+                    `;
+                }).join("");
+
+                const cardHtml = `
+                    <article id="module-card-${mod.id}" class="scroll-mt-20 rounded-2xl bg-white dark:bg-slate-900 border ${
+                        status === 'completed'
+                            ? 'border-emerald-500/40 dark:border-emerald-500/30'
+                            : 'border-slate-200 dark:border-slate-800'
+                    } shadow-sm overflow-hidden transition-all">
+                        <!-- Card Header -->
+                        <div onclick="toggleModuleExpand(${mod.id})"
+                             class="p-4 sm:p-5 cursor-pointer hover:bg-slate-50/70 dark:hover:bg-slate-800/40 transition-colors flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                            <div class="flex items-start sm:items-center gap-3.5">
+                                <div class="w-11 h-11 rounded-2xl ${
+                                    status === 'completed'
+                                        ? 'bg-emerald-500 text-white shadow-md shadow-emerald-500/20'
+                                        : 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20'
+                                } flex items-center justify-center flex-shrink-0 text-lg font-bold">
+                                    <i class="fa-solid ${mod.icon}"></i>
+                                </div>
+                                <div class="space-y-1">
+                                    <div class="flex flex-wrap items-center gap-2">
+                                        <span class="text-xs font-mono uppercase tracking-wider font-bold text-indigo-600 dark:text-indigo-400">
+                                            ${mod.stage}
+                                        </span>
+                                        ${statusBadge}
+                                        ${roleBadge}
+                                        <a href="${VIDEO_BASE_URL}?t=${mod.seconds}"
+                                           target="_blank"
+                                           rel="noopener noreferrer"
+                                           onclick="event.stopPropagation()"
+                                           title="Watch ${mod.stage} in Krish Naik's video at ${mod.timestamp}"
+                                           class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-mono bg-rose-500/10 text-rose-600 dark:text-rose-400 hover:bg-rose-500/20 border border-rose-500/20 transition-all">
+                                            <i class="fa-solid fa-play text-[9px]"></i>
+                                            ${mod.timestamp}
+                                        </a>
+                                        ${hasNote ? `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-cyan-500/10 text-cyan-600 dark:text-cyan-400"><i class="fa-solid fa-note-sticky text-[9px]"></i>Note Saved</span>` : ''}
+                                    </div>
+                                    <h3 class="text-base sm:text-lg font-bold tracking-tight">
+                                        ${highlightText(mod.title, query)}
+                                    </h3>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 max-w-3xl">
+                                        ${highlightText(mod.description, query)}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Right Controls: Progress Bar & Mark All Button -->
+                            <div class="flex flex-wrap sm:flex-nowrap items-center justify-between lg:justify-end gap-3 pt-2 lg:pt-0 border-t lg:border-t-0 border-slate-100 dark:border-slate-800/80">
+                                <div class="w-36 sm:w-44 space-y-1">
+                                    <div class="flex justify-between text-xs font-mono">
+                                        <span class="text-slate-500 dark:text-slate-400">${completed}/${total} topics</span>
+                                        <span class="font-bold ${status === 'completed' ? 'text-emerald-500' : 'text-indigo-600 dark:text-indigo-400'}">${percent}%</span>
+                                    </div>
+                                    <div class="w-full h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                                        <div class="h-full transition-all duration-300 ${
+                                            status === 'completed'
+                                                ? 'bg-emerald-500'
+                                                : 'bg-gradient-to-r from-indigo-500 to-cyan-400'
+                                        }" style="width: ${percent}%"></div>
+                                    </div>
+                                </div>
+
+                                <button onclick="toggleAllModuleTopics(${mod.id}, event)"
+                                        class="px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all flex items-center gap-1.5 ${
+                                            status === 'completed'
+                                                ? 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-rose-500/10 hover:text-rose-500'
+                                                : 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-500/20 hover:bg-indigo-600 hover:text-white'
+                                        }">
+                                    <i class="fa-solid ${status === 'completed' ? 'fa-rotate-left' : 'fa-check-double'} text-[11px]"></i>
+                                    <span>${status === 'completed' ? 'Reset Stage' : 'Mark All'}</span>
+                                </button>
+
+                                <div class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}">
+                                    <i class="fa-solid fa-chevron-down text-xs"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Expandable Body -->
+                        <div class="${isExpanded ? 'block' : 'hidden'} px-4 sm:px-5 pb-5 pt-2 border-t border-slate-100 dark:border-slate-800/80 space-y-4">
+                            <!-- Topic Categories Grid -->
+                            <div class="space-y-3">
+                                ${categoriesHtml}
+                            </div>
+
+                            <!-- Personal Study Notes & Resource Links per Stage -->
+                            <div class="pt-2">
+                                <details class="group bg-slate-50/70 dark:bg-slate-800/30 rounded-xl border border-slate-200/70 dark:border-slate-800 overflow-hidden" ${hasNote ? 'open' : ''}>
+                                    <summary class="px-4 py-2.5 cursor-pointer list-none flex items-center justify-between text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400">
+                                        <span class="flex items-center gap-2">
+                                            <i class="fa-solid fa-pen-to-square text-cyan-500"></i>
+                                            Personal Study Notes, GitHub Repos & Resource Links (${mod.stage})
+                                        </span>
+                                        <span class="text-[11px] font-normal text-slate-400 group-open:hidden">Click to add notes</span>
+                                    </summary>
+                                    <div class="p-3 pt-0">
+                                        <textarea
+                                            rows="2"
+                                            oninput="saveModuleNote(${mod.id}, this.value)"
+                                            placeholder="Add your personal study notes, documentation links, or project GitHub URLs for ${mod.title}..."
+                                            class="w-full p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all">${noteText}</textarea>
+                                    </div>
+                                </details>
+                            </div>
+                        </div>
+                    </article>
+                `;
+
+                visibleCardsHtml.push(cardHtml);
+            });
+
+            if (visibleCardsHtml.length === 0) {
+                container.innerHTML = "";
+                emptyState.classList.remove("hidden");
+            } else {
+                emptyState.classList.add("hidden");
+                container.innerHTML = visibleCardsHtml.join("");
+            }
+        }
+
+        // Initialize Event Listeners
+        function initEvents() {
+            // Theme toggle
+            document.getElementById("themeToggleBtn").addEventListener("click", () => {
+                appState.darkMode = !appState.darkMode;
+                saveState();
+                applyTheme();
+            });
+
+            // Role Selector buttons
+            document.querySelectorAll(".role-btn").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    appState.selectedRole = btn.getAttribute("data-role");
+                    saveState();
+                    updateDashboard();
+                    renderModules();
+                    const roleInfo = ROLE_CONFIGS[appState.selectedRole];
+                    showToast(`Switched career track to: ${roleInfo.title}`, "fa-bullseye", "text-indigo-400");
+                });
+            });
+
+            // Filter buttons
+            document.querySelectorAll(".filter-btn").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    appState.activeFilter = btn.getAttribute("data-filter");
+                    saveState();
+                    updateDashboard();
+                    renderModules();
+                });
+            });
+
+            // Search input
+            const searchInput = document.getElementById("searchInput");
+            const clearSearchBtn = document.getElementById("clearSearchBtn");
+            searchInput.addEventListener("input", (e) => {
+                appState.searchQuery = e.target.value;
+                clearSearchBtn.classList.toggle("hidden", !appState.searchQuery);
+                renderModules();
+            });
+
+            clearSearchBtn.addEventListener("click", () => {
+                appState.searchQuery = "";
+                searchInput.value = "";
+                clearSearchBtn.classList.add("hidden");
+                renderModules();
+            });
+
+            document.getElementById("resetFiltersBtn").addEventListener("click", () => {
+                appState.searchQuery = "";
+                appState.activeFilter = "all";
+                searchInput.value = "";
+                clearSearchBtn.classList.add("hidden");
+                saveState();
+                updateDashboard();
+                renderModules();
+            });
+
+            // Expand / Collapse All
+            document.getElementById("expandAllBtn").addEventListener("click", () => {
+                ROADMAP_DATA.forEach(m => appState.expandedModules[m.id] = true);
+                saveState();
+                renderModules();
+            });
+
+            document.getElementById("collapseAllBtn").addEventListener("click", () => {
+                ROADMAP_DATA.forEach(m => appState.expandedModules[m.id] = false);
+                saveState();
+                renderModules();
+            });
+
+            // Video Summary Modal
+            const summaryModal = document.getElementById("summaryModal");
+            const openSummary = () => {
+                summaryModal.classList.remove("hidden");
+                summaryModal.classList.add("flex");
+            };
+            const closeSummary = () => {
+                summaryModal.classList.add("hidden");
+                summaryModal.classList.remove("flex");
+            };
+            document.getElementById("openSummaryBtn").addEventListener("click", openSummary);
+            document.getElementById("closeSummaryModalBtn").addEventListener("click", closeSummary);
+            document.getElementById("closeSummaryBottomBtn").addEventListener("click", closeSummary);
+            summaryModal.addEventListener("click", (e) => {
+                if (e.target === summaryModal) closeSummary();
+            });
+
+            // Data Backup / Export / Import Modal
+            const dataModal = document.getElementById("dataModal");
+            const openDataModal = () => {
+                dataModal.classList.remove("hidden");
+                dataModal.classList.add("flex");
+            };
+            const closeDataModal = () => {
+                dataModal.classList.add("hidden");
+                dataModal.classList.remove("flex");
+                document.getElementById("resetConfirmGroup").classList.add("hidden");
+                document.getElementById("resetInitBtn").classList.remove("hidden");
+            };
+            document.getElementById("openDataModalBtn").addEventListener("click", openDataModal);
+            document.getElementById("closeDataModalBtn").addEventListener("click", closeDataModal);
+            dataModal.addEventListener("click", (e) => {
+                if (e.target === dataModal) closeDataModal();
+            });
+
+            // Export JSON Download
+            document.getElementById("downloadJsonBtn").addEventListener("click", () => {
+                const exportPayload = {
+                    version: 1,
+                    exportedAt: new Date().toISOString(),
+                    completedTopics: appState.completedTopics,
+                    moduleNotes: appState.moduleNotes,
+                    selectedRole: appState.selectedRole
+                };
+                const blob = new Blob([JSON.stringify(exportPayload, null, 2)], { type: "application/json" });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = `ai-engineering-roadmap-backup-${new Date().toISOString().slice(0, 10)}.json`;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                URL.revokeObjectURL(url);
+                showToast("Progress JSON file downloaded!", "fa-download", "text-indigo-400");
+            });
+
+            // Copy JSON to Clipboard (with fallback for iframe restrictions)
+            document.getElementById("copyJsonBtn").addEventListener("click", () => {
+                const exportPayload = {
+                    version: 1,
+                    exportedAt: new Date().toISOString(),
+                    completedTopics: appState.completedTopics,
+                    moduleNotes: appState.moduleNotes,
+                    selectedRole: appState.selectedRole
+                };
+                const jsonStr = JSON.stringify(exportPayload, null, 2);
+                const tempTextarea = document.createElement("textarea");
+                tempTextarea.value = jsonStr;
+                document.body.appendChild(tempTextarea);
+                tempTextarea.select();
+                document.execCommand("copy");
+                tempTextarea.remove();
+                showToast("Backup JSON copied to clipboard!", "fa-copy", "text-emerald-400");
+            });
+
+            // Import from JSON File Upload
+            document.getElementById("importFileInput").addEventListener("change", (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    try {
+                        const parsed = JSON.parse(event.target.result);
+                        applyImportedData(parsed);
+                        closeDataModal();
+                    } catch (err) {
+                        showToast("Invalid JSON file format.", "fa-circle-exclamation", "text-rose-400");
+                    }
+                };
+                reader.readAsText(file);
+            });
+
+            // Import from Pasted JSON String
+            document.getElementById("importJsonBtn").addEventListener("click", () => {
+                const raw = document.getElementById("importJsonTextarea").value.trim();
+                if (!raw) {
+                    showToast("Please paste a valid JSON backup string first.", "fa-circle-exclamation", "text-amber-400");
+                    return;
+                }
+                try {
+                    const parsed = JSON.parse(raw);
+                    applyImportedData(parsed);
+                    document.getElementById("importJsonTextarea").value = "";
+                    closeDataModal();
+                } catch (err) {
+                    showToast("Invalid JSON string. Please check formatting.", "fa-circle-exclamation", "text-rose-400");
+                }
+            });
+
+            // Safe Two-Step Reset Confirmation
+            document.getElementById("resetInitBtn").addEventListener("click", () => {
+                document.getElementById("resetInitBtn").classList.add("hidden");
+                document.getElementById("resetConfirmGroup").classList.remove("hidden");
+                document.getElementById("resetConfirmGroup").classList.add("flex");
+            });
+
+            document.getElementById("cancelResetBtn").addEventListener("click", () => {
+                document.getElementById("resetConfirmGroup").classList.add("hidden");
+                document.getElementById("resetConfirmGroup").classList.remove("flex");
+                document.getElementById("resetInitBtn").classList.remove("hidden");
+            });
+
+            document.getElementById("confirmResetBtn").addEventListener("click", () => {
+                appState.completedTopics = {};
+                appState.moduleNotes = {};
+                saveState();
+                updateDashboard();
+                renderModules();
+                closeDataModal();
+                showToast("All roadmap progress and notes have been reset.", "fa-trash-can", "text-rose-400");
+            });
+        }
+
+        function applyImportedData(parsed) {
+            if (parsed && typeof parsed === "object") {
+                if (parsed.completedTopics) appState.completedTopics = parsed.completedTopics;
+                if (parsed.moduleNotes) appState.moduleNotes = parsed.moduleNotes;
+                if (parsed.selectedRole && ROLE_CONFIGS[parsed.selectedRole]) {
+                    appState.selectedRole = parsed.selectedRole;
+                }
+                saveState();
+                updateDashboard();
+                renderModules();
+                showToast("Roadmap progress & notes restored!", "fa-circle-check", "text-emerald-400");
+            }
+        }
+
+        // Boot the Application
+        window.addEventListener("DOMContentLoaded", () => {
+            loadState();
+            applyTheme();
+            initEvents();
+            updateDashboard();
+            renderModules();
+        });
+    </script>
+</body>
+</html>
